@@ -15,7 +15,19 @@
         </div>
     </nav>
     <main id="main">
-        <h2 class="text-center p-3">Bienvenido</h2>
+        <h2 class="text-center p-3 titulo">Bienvenido</h2>
+        <div class="container p-2">
+            <button class="btn btn-dark" id="btnback" value="true">Dark</button>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" onclick="sortbyName()">Ordenar por nombre</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="fetchAPI()">Default</a></li>
+                </ul>
+              </div>
+        </div>
         <div class="container overflow-auto" id="render">
             
         </div>

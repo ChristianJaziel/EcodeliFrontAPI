@@ -1,5 +1,6 @@
 const url = 'https://www.ecodeli.mx/ApiRest/ApiEcodeliComercial/v2/PaginaEcodeli/get_Proveedores';
-
+const btnBackground = document.querySelector('#btnback');
+var datos = [];
 const reqData =  new URLSearchParams ({
     strAccion : ['1'],
     strUsuario : ['rnazario'],
@@ -10,29 +11,58 @@ const reqData =  new URLSearchParams ({
     strCoordinador : [''],
     strConexion : ['connection']
 });
+const fetchAPI= async()=>{
+    try{
+        const response = await fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: reqData.toString()
+        });
+        const data = await response.json();
+        document.getElementById('iderror')?.remove();
+        renderData(data);
+        return data;
+    }catch (error){
+        console.log('Error al obtener los datos');
+    }
+    
+}
 
-fetch(url,{
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: reqData.toString()
-})
-.then(response=> response.json() )
-.then(data=> {
-    // console.log(data)
-    renderData(data);
-})
-.catch(error=>{ console.log(error)});
-
+const getData = async()=>{
+    const data = await fetchAPI();
+    if(data){
+        datos = data;
+        return datos;
+    }else{
+        console.log('No se pudieron obtener los datos');
+    }
+}
+const sortbyName= async()=>{
+        const dataOrderbyName = await getData();
+        console.log(dataOrderbyName);
+        dataOrderbyName.sort((a,b)=>{
+            if(a.strNombre>b.strNombre){
+                 return 1;
+            }else if(a.strNombre<b.strNombre){
+                return -1;
+            }else{
+                 return 0;
+             }
+         });
+         document.getElementById('idtable')?.remove();
+         renderData(dataOrderbyName);
+}
 
 function renderData(data){
     const row = document.getElementById('render');
     row.innerHTML = '';
 
-    if(data.length>0){
+    if(Array.isArray(data) && data.length>0){
         data.forEach(element=>{
             const table = document.createElement('table');
+            table.id = 'idtable';
             table.className = 'table';
             
             table.innerHTML = `
@@ -68,11 +98,31 @@ function renderData(data){
         });
     }else{
         const main = document.getElementById('main');
-        console.log(main)
         const mainErr = document.createElement('div');
-        mainErr.className = 'bg-danger';
+        mainErr.className = ' container bg-danger';
+        mainErr.id = 'iderror';
         mainErr.innerHTML = `
         <h3 class = 'text-center'>No se encontraron datos</h3>`;
         main.appendChild(mainErr);
     }
 }
+
+btnBackground.addEventListener('click', ()=>{
+    console.log('click')
+    if(btnBackground.value=='true'){
+        document.body.style.backgroundColor = '#252525'
+        document.querySelector('.titulo').style.color = 'white';
+        btnBackground.innerHTML = 'Light';
+        btnBackground.className = 'btn btn-light';
+        btnBackground.value='false';
+    }else{
+        console.log('estoy en falso')
+        document.body.style.backgroundColor = 'white'
+        document.querySelector('.titulo').style.color = 'black';
+        btnBackground.innerHTML = 'Dark';
+        btnBackground.className = 'btn btn-dark';
+        btnBackground.value='true';
+    }
+    
+});
+fetchAPI()
