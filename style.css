@@ -9,6 +9,7 @@ img{
 }
 .table{
     text-align: left;
+    margin-bottom: 20px;
 }
 .table thead, .table tbody, .table th, .table td{
     width: 12%;
@@ -28,6 +29,7 @@ img{
     }
     .table{
         display: flex;
+        margin-bottom: 10px;
     }
     .table thead, .table tbody{
         width: 100%;

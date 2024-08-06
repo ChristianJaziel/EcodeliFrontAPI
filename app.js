@@ -33,7 +33,7 @@ function renderData(data){
     if(data.length>0){
         data.forEach(element=>{
             const table = document.createElement('table');
-            table.className = 'mb-3 table';
+            table.className = 'table';
             
             table.innerHTML = `
                     <thead>
@@ -69,9 +69,10 @@ function renderData(data){
     }else{
         const main = document.getElementById('main');
         console.log(main)
-        const mainErr = `<div class = 'bg-danger'>
-        <h3 class = 'text-center'>No se encontraron datos</h3>
-        </div>`;
+        const mainErr = document.createElement('div');
+        mainErr.className = 'bg-danger';
+        mainErr.innerHTML = `
+        <h3 class = 'text-center'>No se encontraron datos</h3>`;
         main.appendChild(mainErr);
     }
 }
