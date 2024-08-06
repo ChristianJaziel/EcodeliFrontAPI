@@ -41,7 +41,7 @@ const getData = async()=>{
 }
 const sortbyName= async()=>{
         const dataOrderbyName = await getData();
-        console.log(dataOrderbyName);
+        //console.log(dataOrderbyName);
         dataOrderbyName.sort((a,b)=>{
             if(a.strNombre>b.strNombre){
                  return 1;
@@ -108,7 +108,6 @@ function renderData(data){
 }
 
 btnBackground.addEventListener('click', ()=>{
-    console.log('click')
     if(btnBackground.value=='true'){
         document.body.style.backgroundColor = '#252525'
         document.querySelector('.titulo').style.color = 'white';
@@ -116,7 +115,6 @@ btnBackground.addEventListener('click', ()=>{
         btnBackground.className = 'btn btn-light';
         btnBackground.value='false';
     }else{
-        console.log('estoy en falso')
         document.body.style.backgroundColor = 'white'
         document.querySelector('.titulo').style.color = 'black';
         btnBackground.innerHTML = 'Dark';
